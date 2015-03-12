@@ -1,0 +1,26 @@
+<aura:component controller="dug_lightcomp.conversion_Controller">
+    <div align="center" style="padding-top:50px" >
+        <img src="https://partner-portal-8701.s3.amazonaws.com/logos/18/Silverline_logo.png"/>   
+    </div>
+    <div align="center" style="padding-top:20px">
+        <h1><em>$ Currency Converter €</em></h1>
+    </div>
+    <div align="center" style="padding-top:80px">
+        <tr>
+            <td>
+                <ui:inputNumber aura:html="type=integer" aura:id="USD" placeholder="Enter US Dollars ($)" keyup="{!c.jsConvert}"></ui:inputNumber>
+            </td>
+            <td style="padding-left:10px">
+                <ui:inputNumber aura:id="EUR" placeholder="Enter EUR (€)" keyup="{!c.jsConvert}"></ui:inputNumber>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="http://businessclassconsolidator.com/images/rf_small_us_flag.gif" style="padding-top:4px" width="60" height ="40"/>    
+            </td>
+            <td>
+                <img src="http://www.eurogeoss.eu/SiteCollectionImages/logo_03.gif" style="padding-left:10px;padding-top:4px" width="60" height ="40"/>    
+            </td>
+        </tr>
+    </div>    
+</aura:component>

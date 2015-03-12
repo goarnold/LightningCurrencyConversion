@@ -1,0 +1,34 @@
+public class conversion_Controller {
+        
+    @AuraEnabled
+    public static Decimal convert(Decimal val, String fromISO, String toISO)
+    {
+        // create a new webservice that will get the current conversion rate fromISO to the toISO code.
+        // convert the val
+        // return the converted value.
+        if(val==null)
+        {
+            val = 0;
+        }
+        String conversionString = fromISO+toISO;
+        String link = 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22'+conversionString+'%22)&format=json&env=store://datatables.org/alltableswithkeys&callback=';
+        Http h = new Http();
+        HttpRequest req = new HttpRequest();
+		req.setMethod('GET');
+		req.setEndpoint(link);
+		req.setHeader('Content-Type','application/json');
+		req.setHeader('Accept','application/json');
+
+		HttpResponse res = h.send(req);
+
+        Map<String, Object> m = (Map<String, Object>)JSON.deserializeUntyped(res.getBody());
+        Map<String, Object> query = (Map<String, Object>)(m.get('query'));
+        Map<String, Object> results = (Map<String, Object>)(query.get('results'));
+        Map<String, Object> rate = (Map<String, Object>)(results.get('rate'));
+       	String Euro = (String)rate.get('Rate');
+        Decimal EuroRate = Decimal.valueOf(Euro);
+        Decimal convert = val*EuroRate;
+        return convert;
+    }
+
+}
